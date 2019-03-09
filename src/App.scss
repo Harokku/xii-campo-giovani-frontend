@@ -1,3 +1,10 @@
+// Import a Google Font
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+// Bulma customization
+$red: #CC0000;
+$family-sans-serif: "Nunito", sans-serif;
+
 // Bulma sass imports
 @import "~bulma/sass/utilities/_all.sass";
 @import "~bulma/sass/base/_all.sass";
