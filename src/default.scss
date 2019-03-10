@@ -1,0 +1,20 @@
+// 1. Import the initial variables
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+
+// Import a Google Font
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+// Red Cross RED definition
+$redcross: #CC0000;
+$redcross-invert: findColorInvert($redcross);
+
+// Add new red cross color to bulma map
+@import "~bulma/sass/utilities/derived-variables";
+$addColors: (
+        "redcross":($redcross, $redcross-invert)
+);
+$colors: map-merge($colors, $addColors);
+
+// Bulma customization
+$family-sans-serif: "Nunito", sans-serif;

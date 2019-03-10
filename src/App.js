@@ -5,7 +5,7 @@ import './App.scss';
 class App extends Component {
   render() {
     return (
-      <section className="hero is-danger is-fullheight">
+      <section className="hero is-redcross is-fullheight">
         <div className="hero-body">
           <div className="container has-text-centered">
             <figure className="image is-128x128 is-inline-block">
