@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "bulma": "^0.7.4",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-qr-scanner": "^0.0.8",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.5"
   },
   "scripts": {
@@ -25,6 +27,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "node-sass": "^4.11.0"
+    "node-sass": "^4.11.0",
+    "prop-types": "latest"
   }
 }

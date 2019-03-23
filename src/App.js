@@ -1,27 +1,58 @@
-import React, {Component} from 'react';
-import logo from './base.png';
+import React, {useState} from 'react';
 import './App.scss';
+import Guest from "./components/users/Guest";
+import Login from "./components/login/Login";
+import {AuthProvider} from "./AuthContext";
+import {BrowserRouter as Router} from "react-router-dom";
 
-class App extends Component {
-  render() {
-    return (
-      <section className="hero is-redcross is-fullheight">
-        <div className="hero-body">
-          <div className="container has-text-centered">
-            <figure className="image is-128x128 is-inline-block">
-              <img src={logo} alt="CAMPia Logo"/>
-            </figure>
-            <h1 className="title">
-              CAMPia prospettiva
-            </h1>
-            <h2 className="subtitle">
-              Omni Management Console
-            </h2>
-          </div>
-        </div>
-      </section>
-    );
+// Mock fetched data
+let mockCardContent =
+  {
+    cardName: "Anagrafica",
+    cardFields: [
+      {icon: "fas fa-user", fieldName: "Cognome", fieldData: "Vernandelli"},
+      {icon: "far fa-user", fieldName: "Nome", fieldData: "Giacalustra"},
+    ]
   }
+
+const App = () => {
+  // Initial app state, as mock data waiting for backend
+  const [cardContent, setCardContent] = useState(mockCardContent)
+
+  const handleCardChange = (name, data) => {
+    const newCard = {
+      cardName: cardContent.cardName,
+      cardFields: cardContent.cardFields.map(field => (
+        field.fieldName === name
+          ? {...field, fieldData: name}
+          : field
+      ))
+    }
+    console.info(newCard)
+    setCardContent({
+      cardName: cardContent.cardName,
+      cardFields: cardContent.cardFields.map(field => (
+        field.fieldName === name
+          ? {...field, fieldData: data}
+          : field
+      ))
+    })
+  }
+
+  return (
+    <>
+      <Router>
+        <AuthProvider>
+          <Login/>
+          {/*<Guest
+        cardName={cardContent.cardName}
+        cardFields={cardContent.cardFields}
+        onDataChange={handleCardChange}
+      />*/}
+        </AuthProvider>
+      </Router>
+    </>
+  );
 }
 
 export default App;
