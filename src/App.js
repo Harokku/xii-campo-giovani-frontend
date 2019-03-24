@@ -3,7 +3,8 @@ import './App.scss';
 import Guest from "./components/users/Guest";
 import Login from "./components/login/Login";
 import {AuthProvider} from "./AuthContext";
-import {BrowserRouter as Router} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
 
 // Mock fetched data
 let mockCardContent =
@@ -43,7 +44,10 @@ const App = () => {
     <>
       <Router>
         <AuthProvider>
-          <Login/>
+          <Switch>
+            <Route path="/login" component={Login}/>
+            <ProtectedRoute path="/" component={Guest}/>
+          </Switch>
           {/*<Guest
         cardName={cardContent.cardName}
         cardFields={cardContent.cardFields}

@@ -15,15 +15,15 @@ const Guest = (props) => (
         <table className="table is-narrow is-fullwidth is-striped">
           <tbody>
 
-          {props.cardFields.map((row, index) => (
-            <GuestRow
-              key={index}
-              icon={row.icon}
-              fieldName={row.fieldName}
-              fieldData={row.fieldData}
-              onDataChange={props.onDataChange}
-            />
-          ))}
+          {/*{props.cardFields.map((row, index) => (*/}
+            {/*<GuestRow*/}
+              {/*key={index}*/}
+              {/*icon={row.icon}*/}
+              {/*fieldName={row.fieldName}*/}
+              {/*fieldData={row.fieldData}*/}
+              {/*onDataChange={props.onDataChange}*/}
+            {/*/>*/}
+          {/*))}*/}
 
           </tbody>
         </table>
