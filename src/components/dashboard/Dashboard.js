@@ -4,6 +4,7 @@ import TitleBar from "../titleBar/TitleBar";
 import ParticipantsStatusList from "./ParticipantsStatusList";
 import {NavLink, Route, Switch} from "react-router-dom";
 import ParticipantsList from "../participants/ParticipantsList";
+import ParticipantDetail from "../participants/ParticipantDetail";
 
 const Dashboard = () => {
   const [isMenuVisible, setMenuVisible] = useState(false);
@@ -62,6 +63,7 @@ const Dashboard = () => {
           <div className="column">
             <Switch>
               <Route path="/participantsStatus" component={ParticipantsStatusList}/>
+              <Route exact path="/participants/:participantId" component={ParticipantDetail}/>
               <Route path="/participants" component={ParticipantsList}/>
 
             </Switch>

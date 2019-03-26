@@ -2,19 +2,20 @@ import React, {useState, useEffect} from 'react';
 import './ParticipantsList.scss';
 import axios from 'axios';
 import QrReader from 'react-qr-reader'
+import {Redirect} from "react-router-dom";
 import ParticipantBrief from "./ParticipantBrief";
 
 const ParticipantsList = () => {
   const remoteURL = process.env.REACT_APP_REMOTE_URI;
   const localStorageName = "Campia_JWT";
   const [participants, setParticipants] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('');
+  const [scannedQR, setScannedQR] = useState(null);
   const [isQrReaderOpen, setQrReaderOpen] = useState(false);
 
   const handleScan = (data) => {
     if (data !== null) {
-      console.log(data)
-      setQrReaderOpen(false)
+      setScannedQR(data)
     }
   };
 
@@ -57,6 +58,10 @@ const ParticipantsList = () => {
                 </span>
           </div>
         </div>
+        {scannedQR !== null
+          ? <Redirect to={`/participants/${scannedQR.toString()}`}/>
+          : null
+        }
         {isQrReaderOpen
           ? <div className="level-item">
             <QrReader
