@@ -1,11 +1,10 @@
 import React, {useState} from 'react'
 import './Login.scss'
-import PropTypes from 'prop-types'
 import logo from "../../base.png";
 import {AuthConsumer} from "../../AuthContext";
 import {Redirect} from "react-router-dom";
 
-const Login = (props) => {
+const Login = () => {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [isError, setError] = useState(false)
@@ -92,7 +91,5 @@ const Login = (props) => {
     </AuthConsumer>
   )
 }
-
-Login.propTypes = {}
 
 export default Login

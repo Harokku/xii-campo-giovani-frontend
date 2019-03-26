@@ -1,14 +1,11 @@
 import React, {useState} from 'react'
 import './Dashboard.scss'
-import PropTypes from 'prop-types'
 import TitleBar from "../titleBar/TitleBar";
 import ParticipantsStatusList from "./ParticipantsStatusList";
-import Login from "../login/Login";
-import ProtectedRoute from "../../App";
-import {BrowserRouter as Router, NavLink, Route, Switch} from "react-router-dom";
+import {NavLink, Route, Switch} from "react-router-dom";
 import ParticipantsList from "../participants/ParticipantsList";
 
-const Dashboard = (props) => {
+const Dashboard = () => {
   const [isMenuVisible, setMenuVisible] = useState(false);
 
 
@@ -45,20 +42,20 @@ const Dashboard = (props) => {
                     </NavLink>
                   </li>
                   <li>
-                    <a>
+                    <NavLink to="/trips" activeClassName="is-active">
                     <span className="icon">
                       <i className="fas fa-tachometer"/>
                     </span>
                       Viaggi
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
-                    <a>
+                    <NavLink to="/shifts" activeClassName="is-active">
                     <span className="icon">
                       <i className="fas fa-tachometer"/>
                     </span>
                       Turni
-                    </a>
+                    </NavLink>
                   </li>
                 </ul>
               </nav>
@@ -78,8 +75,6 @@ const Dashboard = (props) => {
       </section>
     </>
   )
-}
-
-Dashboard.propTypes = {}
+};
 
 export default Dashboard

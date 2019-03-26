@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
 import './ParticipantsStatusList.scss';
 import ParticipantStatus from "./ParticipantStatus";
 import axios from "axios";
 
-const ParticipantsStatusList = (props) => {
+const ParticipantsStatusList = () => {
   const remoteURL = process.env.REACT_APP_REMOTE_URI;
   const localStorageName = "Campia_JWT";
   const [participants, setParticipants] = useState([]);
@@ -65,7 +64,5 @@ const ParticipantsStatusList = (props) => {
     </div>
   )
 }
-
-ParticipantsStatusList.propTypes = {}
 
 export default ParticipantsStatusList

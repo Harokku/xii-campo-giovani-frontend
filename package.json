@@ -5,6 +5,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bulma": "^0.7.4",
+    "moment": "^2.24.0",
+    "qrcode.react": "^0.9.3",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-qr-scanner": "^0.0.8",

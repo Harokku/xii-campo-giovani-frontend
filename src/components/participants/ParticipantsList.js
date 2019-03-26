@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
 import './ParticipantsList.scss';
 import axios from 'axios';
 import ParticipantBrief from "./ParticipantBrief";
 
-const ParticipantsList = (props) => {
+const ParticipantsList = () => {
   const remoteURL = process.env.REACT_APP_REMOTE_URI;
   const localStorageName = "Campia_JWT";
   const [participants, setParticipants] = useState([]);
@@ -30,111 +29,21 @@ const ParticipantsList = (props) => {
   return (
     <section className="section">
       <div className="tile is-ancestor" style={{"flexWrap": "wrap"}}>
-        <div className="tile is-parent is-4">
-          <div className="tile is-child">
-            <ParticipantBrief
-              displayName="Fabio vuolo"
-              dob="21"
-              status="Al campo"
-            />
+        {participants.map(participant => (
+          <div key={participant._id} className="tile is-parent is-4">
+            <div className="tile is-child">
+              <ParticipantBrief
+                id={participant._id}
+                displayName={`${participant.surname} ${participant.name}`}
+                dob={participant.dob}
+                isPresent={participant.isPresent}
+              />
+            </div>
           </div>
-        </div>
-        <div className="tile is-parent is-4">
-          <div className="tile is-child">
-            <ParticipantBrief
-              displayName="Fabio vuolo"
-              dob="21"
-              status="Al campo"
-            />
-          </div>
-        </div>
-        <div className="tile is-parent is-4">
-          <div className="tile is-child">
-            <ParticipantBrief
-              displayName="Fabio vuolo"
-              dob="21"
-              status="Al campo"
-            />
-          </div>
-        </div>
-        <div className="tile is-parent is-4">
-          <div className="tile is-child">
-            <ParticipantBrief
-              displayName="Fabio vuolo"
-              dob="21"
-              status="Al campo"
-            />
-          </div>
-        </div>
-        <div className="tile is-parent is-4">
-          <div className="tile is-child">
-            <ParticipantBrief
-              displayName="Fabio vuolo"
-              dob="21"
-              status="Al campo"
-            />
-          </div>
-        </div>
-        <div className="tile is-parent is-4">
-          <div className="tile is-child">
-            <ParticipantBrief
-              displayName="Fabio vuolo"
-              dob="21"
-              status="Al campo"
-            />
-          </div>
-        </div>
-        <div className="tile is-parent is-4">
-          <div className="tile is-child">
-            <ParticipantBrief
-              displayName="Fabio vuolo"
-              dob="21"
-              status="Al campo"
-            />
-          </div>
-        </div>
-        <div className="tile is-parent is-4">
-          <div className="tile is-child">
-            <ParticipantBrief
-              displayName="Fabio vuolo"
-              dob="21"
-              status="Al campo"
-            />
-          </div>
-        </div>
-        <div className="tile is-parent is-4">
-          <div className="tile is-child">
-            <ParticipantBrief
-              displayName="Fabio vuolo"
-              dob="21"
-              status="Al campo"
-            />
-          </div>
-        </div>
-        <div className="tile is-parent is-4">
-          <div className="tile is-child">
-            <ParticipantBrief
-              displayName="Fabio vuolo"
-              dob="21"
-              status="Al campo"
-            />
-          </div>
-        </div>
-        <div className="tile is-parent is-4">
-          <div className="tile is-child">
-            <ParticipantBrief
-              displayName="Fabio vuolo"
-              dob="21"
-              status="Al campo"
-            />
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   )
 }
-
-
-ParticipantsList.propTypes = {}
 
 export default ParticipantsList
