@@ -50,7 +50,7 @@ const ParticipantsList = () => {
                    type="text"
                    placeholder="Cerca partecipante"
                    value={searchTerm}
-                   onChange={(e) => setSearchTerm(e.target.value)}
+                   onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
             />
             <span className="icon is-small is-left">
                   <i className="fas fa-search"/>
@@ -72,18 +72,28 @@ const ParticipantsList = () => {
         </div>
       </div>
       <div className="tile is-ancestor" style={{"flexWrap": "wrap"}}>
-        {participants.map(participant => (
-          <div key={participant._id} className="tile is-parent is-4">
-            <div className="tile is-child">
-              <ParticipantBrief
-                id={participant._id}
-                displayName={`${participant.surname} ${participant.name}`}
-                dob={participant.dob}
-                isPresent={participant.isPresent}
-              />
-            </div>
-          </div>
-        ))}
+        {
+          participants
+            .filter(el => {
+              if (searchTerm === '') {
+                return true
+              } else {
+                return el.surname.toLowerCase().includes(searchTerm) || el.name.toLowerCase().includes(searchTerm)
+              }
+            })
+            .map(participant => (
+              <div key={participant._id} className="tile is-parent is-4">
+                <div className="tile is-child">
+                  <ParticipantBrief
+                    id={participant._id}
+                    displayName={`${participant.surname} ${participant.name}`}
+                    dob={participant.dob}
+                    isPresent={participant.isPresent}
+                  />
+                </div>
+              </div>
+            ))
+        }
       </div>
     </section>
   )

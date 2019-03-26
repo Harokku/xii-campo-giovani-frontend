@@ -14,7 +14,7 @@
     "react-scripts": "2.1.5"
   },
   "scripts": {
-    "start": "REACT_APP_REMOTE_URI=https://capia-backend.herokuapp.com react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
