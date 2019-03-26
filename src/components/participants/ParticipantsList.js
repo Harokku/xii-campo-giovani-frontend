@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './ParticipantsList.scss';
 import axios from 'axios';
-import QrReader from 'react-qr-scanner'
+import QrReader from 'react-qr-reader'
 import ParticipantBrief from "./ParticipantBrief";
 
 const ParticipantsList = () => {
@@ -19,8 +19,7 @@ const ParticipantsList = () => {
   };
 
   const qrReaderStyle = {
-    height: 240,
-    width: 320
+    width: '100%'
   }
 
   useEffect(() => {
@@ -62,7 +61,6 @@ const ParticipantsList = () => {
           ? <div className="level-item">
             <QrReader
               style={qrReaderStyle}
-              facingMode="rear"
               onError={(err) => console.error(err)}
               onScan={handleScan}
             />
