@@ -9,13 +9,9 @@ const Dashboard = () => {
   const [isMenuVisible, setMenuVisible] = useState(false);
 
 
-  const toggleMenuVisibility = () => {
-    setMenuVisible(!isMenuVisible)
-  }
-
   return (
     <>
-      <TitleBar logoFunc={toggleMenuVisibility}/>
+      <TitleBar logoFunc={() => setMenuVisible(!isMenuVisible)}/>
       <section>
         <div className="columns">
           {isMenuVisible
@@ -64,11 +60,11 @@ const Dashboard = () => {
           }
 
           <div className="column">
-              <Switch>
-                <Route path="/participantsStatus" component={ParticipantsStatusList}/>
-                <Route path="/participants" component={ParticipantsList}/>
+            <Switch>
+              <Route path="/participantsStatus" component={ParticipantsStatusList}/>
+              <Route path="/participants" component={ParticipantsList}/>
 
-              </Switch>
+            </Switch>
           </div>
 
         </div>
