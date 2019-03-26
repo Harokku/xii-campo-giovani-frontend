@@ -24,7 +24,6 @@ const AuthProvider = (props) => {
         password: password
       });
       localStorage.setItem(localStorageName, JSON.stringify(response.data.accessToken))
-      console.log(response);
       setIsAuth(true)
       return {
         success: true,
@@ -45,7 +44,6 @@ const AuthProvider = (props) => {
   const logout = () => {
     localStorage.removeItem(localStorageName);
     setIsAuth(false);
-    console.warn("Logged out")
     return {
       success: true,
       status: 'LoggedOut'

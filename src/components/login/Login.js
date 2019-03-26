@@ -8,14 +8,15 @@ import {Redirect} from "react-router-dom";
 const Login = (props) => {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
+  const [isError, setError] = useState(false)
 
   const doLogin = async (e, login, user, password) => {
     e.preventDefault();
     const result = await login(user, password);
     if (result.success === true) {
-      setUser("Logged")
+      setError(false)
     } else {
-      setUser("Error")
+      setError(true)
     }
   };
 
@@ -25,6 +26,21 @@ const Login = (props) => {
         isAuth
           ? <Redirect to="/"/>
           : <section className="hero is-redcross is-fullheight">
+
+            <div className="hero-head">
+              {isError
+                ? <div className="container">
+                  <div className="notification is-danger has-text-centered">
+                  <span className="icon">
+                    <i className="fas fa-exclamation"/>
+                  </span>
+                    Login fallito, inserisci nuovamente i dati!
+                  </div>
+                </div>
+                : <></>
+              }
+            </div>
+
             <div className="hero-body">
               <div className="container">
                 <div className="columns is-centered">
@@ -70,6 +86,7 @@ const Login = (props) => {
                 </div>
               </div>
             </div>
+
           </section>
       )}
     </AuthConsumer>

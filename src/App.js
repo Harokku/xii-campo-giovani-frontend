@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import './App.scss';
-import Guest from "./components/users/Guest";
 import Login from "./components/login/Login";
 import {AuthProvider} from "./AuthContext";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
+import Dashboard from "./components/dashboard/Dashboard";
 
 // Mock fetched data
 let mockCardContent =
@@ -29,7 +29,6 @@ const App = () => {
           : field
       ))
     }
-    console.info(newCard)
     setCardContent({
       cardName: cardContent.cardName,
       cardFields: cardContent.cardFields.map(field => (
@@ -46,7 +45,7 @@ const App = () => {
         <AuthProvider>
           <Switch>
             <Route path="/login" component={Login}/>
-            <ProtectedRoute path="/" component={Guest}/>
+            <ProtectedRoute path="/" component={Dashboard}/>
           </Switch>
           {/*<Guest
         cardName={cardContent.cardName}
