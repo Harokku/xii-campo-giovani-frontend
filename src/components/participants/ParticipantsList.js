@@ -43,8 +43,9 @@ const ParticipantsList = () => {
 
   return (
     <section className="section">
+
       <div className="level">
-        <div className="level-left">
+        <div className="level-item">
           <div className="control has-icons-left">
             <input className="input"
                    type="text"
@@ -61,16 +62,18 @@ const ParticipantsList = () => {
           ? <div className="level-item">
             <QrReader
               style={qrReaderStyle}
+              facingMode="rear"
               onError={(err) => console.error(err)}
               onScan={handleScan}
             />
           </div>
           : null
         }
-        <div className="level-right">
+        <div className="level-item">
           <button className="button is-link" onClick={() => setQrReaderOpen(!isQrReaderOpen)}>Leggi QR</button>
         </div>
       </div>
+
       <div className="tile is-ancestor" style={{"flexWrap": "wrap"}}>
         {
           participants
@@ -95,6 +98,7 @@ const ParticipantsList = () => {
             ))
         }
       </div>
+
     </section>
   )
 }
