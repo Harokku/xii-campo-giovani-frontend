@@ -20,22 +20,22 @@ const ParticipantDetailRow = (props) => {
               </div>
               <div className="control">
                 <button
-                  className="button is-primary"
+                  className="button is-small is-primary"
                   onClick={() => {
                     setEditing(false);
                     props.onSubmit(rowData);
                   }
-                  }>Salva
+                  }><i className="fas fa-check"/>
                 </button>
               </div>
               <div className="control">
                 <button
-                  className="button is-danger"
+                  className="button is-small is-danger"
                   onClick={() => {
                     setEditing(false);
                     setRowData(props.data);
                   }
-                  }>Annulla
+                  }><i className="fas fa-times"/>
                 </button>
               </div>
             </div>

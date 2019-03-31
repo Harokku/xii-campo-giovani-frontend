@@ -8,6 +8,12 @@ import {Link} from "react-router-dom";
 const ParticipantBrief = (props) => {
   const [showQR, setShowQr] = useState(false);
 
+  const statusVariation = {
+    present: {color: 'is-success', text: 'Al campo'},
+    away: {color: 'is-warning', text: 'In missione'},
+    off: {color: 'is-danger', text: 'In licenza'},
+  };
+
   return (
     <div className="card">
       <div className="card-content">
@@ -25,7 +31,7 @@ const ParticipantBrief = (props) => {
           <span className="tags has-addons is-pulled-right">
             <span className="tag">Stato</span>
             <span
-              className={`tag ${props.isPresent ? 'is-success' : 'is-danger'}`}>{props.isPresent ? 'Al campo' : 'In licenza'}</span>
+              className={`tag ${statusVariation[props.isPresent] ? statusVariation[props.isPresent].color : 'is-outlined'}`}>{statusVariation[props.isPresent] ? statusVariation[props.isPresent].text : 'Sconosciuto'}</span>
           </span>
         </p>
       </div>
@@ -49,7 +55,7 @@ ParticipantBrief.propTypes = {
   id: PropTypes.string,
   displayName: PropTypes.string,
   dob: PropTypes.string,
-  isPresent: PropTypes.bool,
+  isPresent: PropTypes.string,
 }
 
 export default ParticipantBrief

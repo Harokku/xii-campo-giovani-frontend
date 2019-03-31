@@ -4,12 +4,14 @@ import axios from 'axios';
 import QrReader from 'react-qr-reader'
 import {Redirect} from "react-router-dom";
 import ParticipantBrief from "./ParticipantBrief";
+import StatusSelector from "./StatusSelector";
 
 const ParticipantsList = () => {
   const remoteURL = process.env.REACT_APP_REMOTE_URI;
   const localStorageName = "Campia_JWT";
   const [participants, setParticipants] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all')
   const [scannedQR, setScannedQR] = useState(null);
   const [isQrReaderOpen, setQrReaderOpen] = useState(false);
 
@@ -45,6 +47,14 @@ const ParticipantsList = () => {
     <section className="section">
 
       <div className="level">
+        {isQrReaderOpen
+          ? null
+          : <div className="level-item">
+            <StatusSelector
+              onStatusChange={setFilterStatus}
+            />
+          </div>
+        }
         <div className="level-item">
           <div className="control has-icons-left">
             <input className="input"
@@ -80,6 +90,13 @@ const ParticipantsList = () => {
       <div className="tile is-ancestor" style={{"flexWrap": "wrap"}}>
         {
           participants
+            .filter(el => {
+              if (filterStatus === 'all') {
+                return true
+              } else {
+                return el.isPresent === filterStatus
+              }
+            })
             .filter(el => {
               if (searchTerm === '') {
                 return true

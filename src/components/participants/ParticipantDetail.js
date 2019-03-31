@@ -42,6 +42,23 @@ const ParticipantDetail = ({match}) => {
     getParticipant()
   }, []);
 
+  const patchParticipant = async (key, data) => {
+    try {
+      const response = await axios.patch(`${remoteURL}/participants/${match.params.participantId}`,
+        {[key]: data},
+        {
+          headers: {
+            'Accept': '*/*',
+            'Authorization': JSON.parse(localStorage.getItem(localStorageName))
+          }
+        }
+      )
+      return response
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   const handleSubmit = (itemKey) => (data) => {
     console.group('Curried invocation params');
     console.log(`Item key: ${itemKey}`);
@@ -50,15 +67,12 @@ const ParticipantDetail = ({match}) => {
     setParticipant({
       ...participant,
       [itemKey]: data
-    })
+    });
+    patchParticipant(itemKey, data)
   };
-
-  // TODO: Implement patch method to backend
 
   return (
     <>
-      <h1>{match.params.participantId}</h1>
-      <h2>{JSON.stringify(participant)}</h2>
       {
         participant
           ? <section className="section">
