@@ -8,7 +8,7 @@ const ParticipantDetailRow = (props) => {
   return (
     <tr>
       <td width="5%"><i className={`fas fa-${props.icon}`}/></td>
-      <td><strong>{props.fieldName}</strong></td>
+      <td><strong>{props.displayName}</strong></td>
       <td onClick={() => isEditing ? null : setEditing(true)}>
         {
           isEditing
@@ -48,7 +48,7 @@ const ParticipantDetailRow = (props) => {
 
 ParticipantDetailRow.propTypes = {
   icon: PropTypes.string,
-  fieldName: PropTypes.string,
+  displayName: PropTypes.string,
   data: PropTypes.string,
   onSubmit: PropTypes.func,
 }

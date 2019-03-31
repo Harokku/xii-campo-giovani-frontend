@@ -9,37 +9,20 @@ const ParticipantDetail = ({match}) => {
   const localStorageName = "Campia_JWT";
   const [participant, setParticipant] = useState(null);
 
-  const iconsList = [
-    'users',
-    'user',
-    'calendar-day',
-    'credit-card',
-    'scroll',
-    'home',
-    'at',
-    'mobile',
-    'phone',
-    'allergies',
-    'crutch',
-    'capsules',
-    'check'
+  const formModel = [
+    {icon: 'users', displayName: 'Cognome', key: 'surname'},
+    {icon: 'user', displayName: 'Nome', key: 'name'},
+    {icon: 'calendar-day', displayName: 'Data di Nascita', key: 'dob'},
+    {icon: 'credit-card', displayName: 'Codice Fiscale', key: 'cf'},
+    {icon: 'scroll', displayName: 'Ruolo', key: 'role'},
+    {icon: 'home', displayName: 'Comitato', key: 'criUnit'},
+    {icon: 'at', displayName: 'E-Mail', key: 'mail'},
+    {icon: 'mobile', displayName: 'Tel Personale', key: 'personalPhone'},
+    {icon: 'phone', displayName: 'Tel Parente', key: 'parentsPhone'},
+    {icon: 'allergies', displayName: 'Allergie', key: 'allergies'},
+    {icon: 'crutch', displayName: 'Patologie', key: 'pathologies'},
+    {icon: 'capsules', displayName: 'Terapie', key: 'therapies'},
   ];
-
-  const formFields = [
-    'Cognome',
-    'Nome',
-    'Data di Nascita',
-    'Cofice Fiscale',
-    'Ruolo',
-    'Comitato',
-    'Mail',
-    'Tel personale',
-    'Tel parente',
-    'Allergie',
-    'Patologie',
-    'Terapie',
-    'È presente'
-  ]
 
   useEffect(() => {
     async function getParticipant() {
@@ -59,9 +42,18 @@ const ParticipantDetail = ({match}) => {
     getParticipant()
   }, []);
 
-  const handleSubmit = (data) => {
-    console.log(data)
-  }
+  const handleSubmit = (itemKey) => (data) => {
+    console.group('Curried invocation params');
+    console.log(`Item key: ${itemKey}`);
+    console.log(`Row data: ${data}`);
+    console.groupEnd()
+    setParticipant({
+      ...participant,
+      [itemKey]: data
+    })
+  };
+
+  // TODO: Implement patch method to backend
 
   return (
     <>
@@ -88,12 +80,15 @@ const ParticipantDetail = ({match}) => {
                     <table className="table is-narrow is-fullwidth is-striped">
                       <tbody>
 
-                      <ParticipantDetailRow
-                        icon={iconsList[0]}
-                        fieldName={formFields[0]}
-                        data={participant.surname}
-                        onSubmit={handleSubmit}
-                      />
+                      {formModel.map((row, index) => (
+                        <ParticipantDetailRow
+                          key={index}
+                          icon={row.icon}
+                          displayName={row.displayName}
+                          data={participant[row.key]}
+                          onSubmit={handleSubmit(row.key)}
+                        />
+                      ))}
 
                       </tbody>
                     </table>
