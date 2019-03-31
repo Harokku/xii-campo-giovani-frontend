@@ -4,15 +4,10 @@ import './ParticipantBrief.scss'
 import moment from 'moment'
 import QRCode from 'qrcode.react'
 import {Link} from "react-router-dom";
+import ParticipantStatusTag from "../tags/ParticipantStatusTag";
 
 const ParticipantBrief = (props) => {
   const [showQR, setShowQr] = useState(false);
-
-  const statusVariation = {
-    present: {color: 'is-success', text: 'Al campo'},
-    away: {color: 'is-warning', text: 'In missione'},
-    off: {color: 'is-danger', text: 'In licenza'},
-  };
 
   return (
     <div className="card">
@@ -28,11 +23,7 @@ const ParticipantBrief = (props) => {
             />
             : <>Età: <strong>{moment().diff(moment(props.dob), 'years', false)}</strong></>
           }
-          <span className="tags has-addons is-pulled-right">
-            <span className="tag">Stato</span>
-            <span
-              className={`tag ${statusVariation[props.isPresent] ? statusVariation[props.isPresent].color : 'is-outlined'}`}>{statusVariation[props.isPresent] ? statusVariation[props.isPresent].text : 'Sconosciuto'}</span>
-          </span>
+          <ParticipantStatusTag isPresent={props.isPresent} additionalClasses="is-pulled-right"/>
         </p>
       </div>
       <footer className="card-footer">

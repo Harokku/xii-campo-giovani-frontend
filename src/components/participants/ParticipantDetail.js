@@ -3,6 +3,7 @@ import "./ParticipantDetail.scss"
 import axios from 'axios'
 import {Link} from "react-router-dom";
 import ParticipantDetailRow from "./ParticipantDetailRow";
+import ParticipantStatusTag from "../tags/ParticipantStatusTag";
 
 const ParticipantDetail = ({match}) => {
   const remoteURL = process.env.REACT_APP_REMOTE_URI;
@@ -82,12 +83,7 @@ const ParticipantDetail = ({match}) => {
                   <p className="card-header-title">
                     {`${participant.surname} ${participant.name}`}
                   </p>
-                  <span className="tags has-addons is-pulled-right">
-                <span className="tag">Stato</span>
-                <span className={`tag ${participant.isPresent ? 'is-success' : 'is-danger'}`}>
-                  {`${participant.isPresent ? 'Al campo' : 'In licenza'}`}
-                </span>
-              </span>
+                  <ParticipantStatusTag isPresent={participant.isPresent} additionalClasses="is-pulled-right"/>
                 </header>
                 <div className="card-table">
                   <div className="content">
