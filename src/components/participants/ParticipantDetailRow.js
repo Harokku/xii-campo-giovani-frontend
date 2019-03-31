@@ -13,7 +13,7 @@ const ParticipantDetailRow = (props) => {
         {
           isEditing
             ? <div className="field has-addons">
-              <div className="control">
+              <div className="control is-expanded">
                 <input autoFocus className="input" type="text" value={rowData}
                        onChange={e => setRowData(e.target.value)}
                 />

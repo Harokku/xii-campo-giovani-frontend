@@ -47,7 +47,7 @@ const ParticipantsStatusList = () => {
       <div className="level-item">
         <ParticipantStatus
           color='is-info'
-          number={countParticipants(participants, true)}
+          number={countParticipants(participants, 'present')}
           name='Al campo'
         />
       </div>
@@ -57,7 +57,14 @@ const ParticipantsStatusList = () => {
       <div className="level-item">
         <ParticipantStatus
           color='is-warning'
-          number={countParticipants(participants, false)}
+          number={countParticipants(participants, 'away')}
+          name='In missione'
+        />
+      </div>
+      <div className="level-item">
+        <ParticipantStatus
+          color='is-danger'
+          number={countParticipants(participants, 'off')}
           name='In licenza'
         />
       </div>

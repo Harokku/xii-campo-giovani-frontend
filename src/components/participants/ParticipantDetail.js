@@ -87,7 +87,7 @@ const ParticipantDetail = ({match}) => {
                 </header>
                 <div className="card-table">
                   <div className="content">
-                    <table className="table is-narrow is-fullwidth is-striped">
+                    <table className="table is-hoverable is-fullwidth is-striped">
                       <tbody>
 
                       {formModel.map((row, index) => (
@@ -106,6 +106,13 @@ const ParticipantDetail = ({match}) => {
                 </div>
                 <footer className="card-footer">
                   <Link to="/participants" className="card-footer-item">View All</Link>
+                  <p className="card-footer-item">
+                    {
+                      participant.isPresent === 'off'
+                      ? <Link to="/" className=" button is-success">Autorizza rientro</Link>
+                      : <Link to="/" className=" button is-danger">Autorizza uscita</Link>
+                    }
+                  </p>
                 </footer>
               </div>
             </div>
