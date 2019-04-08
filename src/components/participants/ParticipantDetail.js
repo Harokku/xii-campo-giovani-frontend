@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import ParticipantDetailRow from "./ParticipantDetailRow";
 import ParticipantStatusTag from "../tags/ParticipantStatusTag";
 import License from "../license/License";
+import moment from "moment";
 
 const ParticipantDetail = ({match}) => {
   const remoteURL = process.env.REACT_APP_REMOTE_URI;
@@ -73,6 +74,42 @@ const ParticipantDetail = ({match}) => {
     patchParticipant(itemKey, data)
   };
 
+  const handleReadmission = async () => {
+    let updatedParticipant = participant.licenze.sort((a, b) => (
+      new Date(b.departureDate) - new Date(a.departureDate)
+    ))[0];
+
+    updatedParticipant['returnDate'] = moment().toISOString();
+
+    setParticipant({...participant, "isPresent": 'present'});
+    try {
+      const licensePatch = await axios.patch(`${remoteURL}/licence/${updatedParticipant._id}`,
+        {"returnDate": updatedParticipant.returnDate},
+        {
+          headers: {
+            'Accept': '*/*',
+            'Authorization': JSON.parse(localStorage.getItem(localStorageName))
+          }
+        }
+      )
+      const presenceStatusPatch = await axios.patch(`${remoteURL}/participants/${match.params.participantId}`,
+        {"isPresent": "present"},
+        {
+          headers: {
+            'Accept': '*/*',
+            'Authorization': JSON.parse(localStorage.getItem(localStorageName))
+          }
+        }
+      )
+      return [licensePatch, presenceStatusPatch]
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const handleLicense = () => {
+  }
+
   return (
     <>
       {
@@ -111,14 +148,16 @@ const ParticipantDetail = ({match}) => {
                     <p className="card-footer-item">
                       {
                         participant.isPresent === 'off'
-                          ? <Link to="/" className=" button is-success">Autorizza rientro</Link>
-                          : <Link to="/" className=" button is-danger">Autorizza uscita</Link>
+                          ? <button onClick={() => handleReadmission()} className=" button is-success">Autorizza
+                            rientro</button>
+                          : <button className=" button is-danger">Autorizza uscita</button>
                       }
                     </p>
                   </footer>
                 </div>
               </div>
             </section>
+
             <section>
               <div className='columns'>
                 <div className='column has-text-centered'>
@@ -128,7 +167,7 @@ const ParticipantDetail = ({match}) => {
               {participant.licenze
                 ? participant.licenze
                   .sort((a, b) => (
-                   new Date(b.departureDate) - new Date(a.departureDate)
+                    new Date(b.departureDate) - new Date(a.departureDate)
                   ))
                   .map(license => (
                     <License
@@ -142,6 +181,7 @@ const ParticipantDetail = ({match}) => {
                 : <p>Nessuna uscita autorizzata</p>
               }
             </section>
+
           </>
           : <progress className="progress is-medium is-info"/>
       }
