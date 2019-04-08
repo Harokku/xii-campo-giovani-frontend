@@ -4,6 +4,7 @@ import axios from 'axios'
 import {Link} from "react-router-dom";
 import ParticipantDetailRow from "./ParticipantDetailRow";
 import ParticipantStatusTag from "../tags/ParticipantStatusTag";
+import License from "../license/License";
 
 const ParticipantDetail = ({match}) => {
   const remoteURL = process.env.REACT_APP_REMOTE_URI;
@@ -76,49 +77,75 @@ const ParticipantDetail = ({match}) => {
     <>
       {
         participant
-          ? <section className="section">
-            <div className="container">
-              <div className="card events-card">
-                <header className="card-header">
-                  <p className="card-header-title">
-                    {`${participant.surname} ${participant.name}`}
-                  </p>
-                  <ParticipantStatusTag isPresent={participant.isPresent} additionalClasses="is-pulled-right"/>
-                </header>
-                <div className="card-table">
-                  <div className="content">
-                    <table className="table is-hoverable is-fullwidth is-striped">
-                      <tbody>
+          ? <>
+            <section className="section">
+              <div className="container">
+                <div className="card events-card">
+                  <header className="card-header">
+                    <p className="card-header-title">
+                      {`${participant.surname} ${participant.name}`}
+                    </p>
+                    <ParticipantStatusTag isPresent={participant.isPresent} additionalClasses="is-pulled-right"/>
+                  </header>
+                  <div className="card-table">
+                    <div className="content">
+                      <table className="table is-hoverable is-fullwidth is-striped">
+                        <tbody>
 
-                      {formModel.map((row, index) => (
-                        <ParticipantDetailRow
-                          key={index}
-                          icon={row.icon}
-                          displayName={row.displayName}
-                          data={participant[row.key]}
-                          onSubmit={handleSubmit(row.key)}
-                        />
-                      ))}
+                        {formModel.map((row, index) => (
+                          <ParticipantDetailRow
+                            key={index}
+                            icon={row.icon}
+                            displayName={row.displayName}
+                            data={participant[row.key]}
+                            onSubmit={handleSubmit(row.key)}
+                          />
+                        ))}
 
-                      </tbody>
-                    </table>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
+                  <footer className="card-footer">
+                    <Link to="/participants" className="card-footer-item">View All</Link>
+                    <p className="card-footer-item">
+                      {
+                        participant.isPresent === 'off'
+                          ? <Link to="/" className=" button is-success">Autorizza rientro</Link>
+                          : <Link to="/" className=" button is-danger">Autorizza uscita</Link>
+                      }
+                    </p>
+                  </footer>
                 </div>
-                <footer className="card-footer">
-                  <Link to="/participants" className="card-footer-item">View All</Link>
-                  <p className="card-footer-item">
-                    {
-                      participant.isPresent === 'off'
-                      ? <Link to="/" className=" button is-success">Autorizza rientro</Link>
-                      : <Link to="/" className=" button is-danger">Autorizza uscita</Link>
-                    }
-                  </p>
-                </footer>
               </div>
-            </div>
-          </section>
+            </section>
+            <section>
+              <div className='columns'>
+                <div className='column has-text-centered'>
+                  <p className='title'>Permessi</p>
+                </div>
+              </div>
+              {participant.licenze
+                ? participant.licenze
+                  .sort((a, b) => (
+                   new Date(b.departureDate) - new Date(a.departureDate)
+                  ))
+                  .map(license => (
+                    <License
+                      key={license._id}
+                      departureDate={license.departureDate}
+                      returnDate={license.returnDate}
+                      parentName={license.parentName}
+                      parentRelationship={license.parentRelationship}
+                    />
+                  ))
+                : <p>Nessuna uscita autorizzata</p>
+              }
+            </section>
+          </>
           : <progress className="progress is-medium is-info"/>
       }
+      {console.log(participant)}
     </>
   )
 }
