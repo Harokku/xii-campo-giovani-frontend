@@ -6,11 +6,13 @@ import ParticipantDetailRow from "./ParticipantDetailRow";
 import ParticipantStatusTag from "../tags/ParticipantStatusTag";
 import License from "../license/License";
 import moment from "moment";
+import NewLicense from "../license/NewLicense";
 
 const ParticipantDetail = ({match}) => {
   const remoteURL = process.env.REACT_APP_REMOTE_URI;
   const localStorageName = "Campia_JWT";
   const [participant, setParticipant] = useState(null);
+  const [givingLicense, setGivingLicense] = useState(false)
 
   const formModel = [
     {icon: 'users', displayName: 'Cognome', key: 'surname'},
@@ -107,7 +109,33 @@ const ParticipantDetail = ({match}) => {
     }
   }
 
-  const handleLicense = () => {
+  const handleLicense = async (licenseId) => {
+    // TODO: Implement update on participant
+    const updatedLicenses = [...participant.licenses, licenseId]
+    try {
+      const response = await axios.patch(`${remoteURL}/participants/${match.params.participantId}`,
+        {licenses: updatedLicenses},
+        {
+          headers: {
+            'Accept': '*/*',
+            'Authorization': JSON.parse(localStorage.getItem(localStorageName))
+          }
+        }
+      )
+      setParticipant({
+        ...participant,
+        licenses: updatedLicenses
+      })
+      toggleLicense();
+      return response
+    } catch (e) {
+      console.error(e)
+    }
+
+  }
+
+  const toggleLicense = () => {
+    setGivingLicense(!givingLicense)
   }
 
   return (
@@ -150,7 +178,8 @@ const ParticipantDetail = ({match}) => {
                         participant.isPresent === 'off'
                           ? <button onClick={() => handleReadmission()} className=" button is-success">Autorizza
                             rientro</button>
-                          : <button className=" button is-danger">Autorizza uscita</button>
+                          : <button onClick={() => setGivingLicense(true)} className=" button is-danger">Autorizza
+                            uscita</button>
                       }
                     </p>
                   </footer>
@@ -164,6 +193,15 @@ const ParticipantDetail = ({match}) => {
                   <p className='title'>Permessi</p>
                 </div>
               </div>
+
+              {givingLicense
+                ? <NewLicense
+                  participantId={participant._id}
+                  onNewLicenseClose={toggleLicense}
+                  onCreateLicense={handleLicense}
+                />
+                : null}
+
               {participant.licenze
                 ? participant.licenze
                   .sort((a, b) => (

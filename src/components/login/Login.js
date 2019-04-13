@@ -7,7 +7,7 @@ import {Redirect} from "react-router-dom";
 const Login = () => {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
-  const [isError, setError] = useState(false)
+  const [isError, setError] = useState(false);
 
   const doLogin = async (e, login, user, password) => {
     e.preventDefault();
