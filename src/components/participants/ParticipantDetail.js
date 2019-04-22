@@ -77,9 +77,13 @@ const ParticipantDetail = ({match}) => {
   };
 
   const handleReadmission = async () => {
-    let updatedParticipant = participant.licenze.sort((a, b) => (
-      new Date(b.departureDate) - new Date(a.departureDate)
-    ))[0];
+    let updatedParticipant = null;
+
+    Array.isArray(participant.licenze)
+      ? updatedParticipant = participant.licenze.sort((a, b) => (
+        new Date(b.departureDate) - new Date(a.departureDate)
+      ))[0]
+      : updatedParticipant = participant.licenze
 
     updatedParticipant['returnDate'] = moment().toISOString();
 
