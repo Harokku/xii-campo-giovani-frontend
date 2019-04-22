@@ -5,6 +5,7 @@ import ParticipantsStatusList from "./ParticipantsStatusList";
 import {NavLink, Route, Switch} from "react-router-dom";
 import ParticipantsList from "../participants/ParticipantsList";
 import ParticipantDetail from "../participants/ParticipantDetail";
+import VehiclesList from "../vehicles/VehiclesList";
 
 const Dashboard = () => {
   const [isMenuVisible, setMenuVisible] = useState(false);
@@ -25,7 +26,7 @@ const Dashboard = () => {
                   <li>
                     <NavLink to="/participantsStatus" activeClassName="is-active">
                     <span className="icon">
-                      <i className="fas fa-tachometer"/>
+                      <i className="fas fa-tachometer-alt"/>
                     </span>
                       Dashboard
                     </NavLink>
@@ -33,17 +34,17 @@ const Dashboard = () => {
                   <li>
                     <NavLink to="/participants" activeClassName="is-active">
                     <span className="icon">
-                      <i className="fas fa-tachometer"/>
+                      <i className="fas fa-users"/>
                     </span>
                       Partecipanti
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/trips" activeClassName="is-active">
+                    <NavLink to="/vehicles" activeClassName="is-active">
                     <span className="icon">
-                      <i className="fas fa-tachometer"/>
+                      <i className="fas fa-tractor"/>
                     </span>
-                      Viaggi
+                      Mezzi
                     </NavLink>
                   </li>
                   <li>
@@ -65,7 +66,8 @@ const Dashboard = () => {
               <Route path="/participantsStatus" component={ParticipantsStatusList}/>
               <Route exact path="/participants/:participantId" component={ParticipantDetail}/>
               <Route path="/participants" component={ParticipantsList}/>
-
+              {/*<Route exact path="/vehicles/:vechicleID" component={VehicleDetail}/>*/}
+              <Route path="/vehicles" component={VehiclesList}/>
             </Switch>
           </div>
 

@@ -111,10 +111,13 @@ const ParticipantDetail = ({match}) => {
 
   const handleLicense = async (licenseId) => {
     // TODO: Implement update on participant
-    const updatedLicenses = [...participant.licenses, licenseId]
+    const updatedLicenses = participant.licenses ? [...participant.licenses, licenseId] : [licenseId];
     try {
       const response = await axios.patch(`${remoteURL}/participants/${match.params.participantId}`,
-        {licenses: updatedLicenses},
+        {
+          licenses: updatedLicenses,
+          isPresent: "off"
+        },
         {
           headers: {
             'Accept': '*/*',
@@ -202,20 +205,29 @@ const ParticipantDetail = ({match}) => {
                 />
                 : null}
 
+              {console.log(participant)}
               {participant.licenze
-                ? participant.licenze
-                  .sort((a, b) => (
-                    new Date(b.departureDate) - new Date(a.departureDate)
-                  ))
-                  .map(license => (
-                    <License
-                      key={license._id}
-                      departureDate={license.departureDate}
-                      returnDate={license.returnDate}
-                      parentName={license.parentName}
-                      parentRelationship={license.parentRelationship}
-                    />
-                  ))
+                ? Array.isArray(participant.licenze)
+                  ? participant.licenze
+                    .sort((a, b) => (
+                      new Date(b.departureDate) - new Date(a.departureDate)
+                    ))
+                    .map(license => (
+                      <License
+                        key={license._id}
+                        departureDate={license.departureDate}
+                        returnDate={license.returnDate}
+                        parentName={license.parentName}
+                        parentRelationship={license.parentRelationship}
+                      />
+                    ))
+                  : <License
+                    key={participant.licenze._id}
+                    departureDate={participant.licenze.departureDate}
+                    returnDate={participant.licenze.returnDate}
+                    parentName={participant.licenze.parentName}
+                    parentRelationship={participant.licenze.parentRelationship}
+                  />
                 : <p>Nessuna uscita autorizzata</p>
               }
             </section>
