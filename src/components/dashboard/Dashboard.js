@@ -6,6 +6,7 @@ import {NavLink, Route, Switch} from "react-router-dom";
 import ParticipantsList from "../participants/ParticipantsList";
 import ParticipantDetail from "../participants/ParticipantDetail";
 import VehiclesList from "../vehicles/VehiclesList";
+import GuestList from "../guests/GuestList";
 
 const Dashboard = () => {
   const [isMenuVisible, setMenuVisible] = useState(false);
@@ -48,11 +49,11 @@ const Dashboard = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/shifts" activeClassName="is-active">
+                    <NavLink to="/guests" activeClassName="is-active">
                     <span className="icon">
-                      <i className="fas fa-tachometer"/>
+                      <i className="fas fa-user"/>
                     </span>
-                      Turni
+                      Ospiti
                     </NavLink>
                   </li>
                 </ul>
@@ -66,6 +67,7 @@ const Dashboard = () => {
               <Route path="/participantsStatus" component={ParticipantsStatusList}/>
               <Route exact path="/participants/:participantId" component={ParticipantDetail}/>
               <Route path="/participants" component={ParticipantsList}/>
+              <Route path="/guests" component={GuestList}/>
               {/*<Route exact path="/vehicles/:vechicleID" component={VehicleDetail}/>*/}
               <Route path="/vehicles" component={VehiclesList}/>
             </Switch>
